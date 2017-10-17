@@ -16,10 +16,17 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env'],
-            plugins: [require('babel-plugin-transform-object-rest-spread')]
+            presets: ['env']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          'postcss-loader'
+        ]
       }
     ]
   },

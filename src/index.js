@@ -1,30 +1,15 @@
-import _ from "lodash"
+import _ from 'lodash'
+import GridModel from './GridModel'
+import GridView from './GridView'
 
-// Lodash version
-//window.grid = _.map(Array(50), () => _.fill(Array(50),0));
+import styles from './main.css'
 
-// ES6 version
-window.grid = (Array(50)).fill(0);
-window.grid = window.grid.map( () => (Array(50)).fill(0));
+const SIZE = 50;
 
+let model = new GridModel( SIZE, (data,row,col) => {
+  if(view) view.update(data,row,col);
+});
 
-window.gridPrint = function(){
-  console.log('findme');
-  console.log( window.grid.map( ar => ar.join(', ') ).join('\n'));
-}
-window.gridPrint();
-
-window.chooseCell = function(x,y){
-  //Lodash
-  //_.each( window.grid[y], (val, i, col) => col[i]++ );
-  //_.each( window.grid, (val, i, col) => col[i][x]++);
-
-  //ES6
-  window.grid[y].forEach( (val, i, col) => col[i]++ );
-  window.grid.forEach( (val, i, col) => col[i][x]++ );
-
-  window.gridPrint()  ;
-}
-
-chooseCell(49,25);
-chooseCell(0, 49);
+let view = new GridView( SIZE, (row,col) => {
+  model.activateCell(row,col);
+});

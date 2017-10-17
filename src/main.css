@@ -1,0 +1,73 @@
+html {
+  height:100%;
+  width:100%;
+}
+body {
+  height:100%;
+  width:100%;
+  margin:0;
+  background-color:#ddd;
+  padding:0;
+  overflow:hidden;
+  cursor:pointer;
+}
+.container{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+}
+.row {
+  width:100%;
+  height:2%;
+  margin:0;
+  padding:0;
+}
+.row > div {
+  margin:0;
+  padding:0;
+  width:2%;
+  height:100%;
+  display:inline-block;
+  overflow:hidden;
+  text-align:center;
+  font-size:10px;
+  user-select: none;
+  cursor:pointer;
+
+  background-color: grey;
+  /*transition: background-color 1000ms linear;*/
+
+  /*&:not(:active) {
+    transition: background-color 1000ms step-end;
+  }
+  &:active {
+    background-color: yellow;
+  }*/
+}
+
+.activated {
+  animation-name: yellowAnim;
+  animation-duration: 1s;
+  animation-play-state: running;
+}
+
+@keyframes yellowAnim {
+    0%     {background-color:gray;}
+    50.0%  {background-color:yellow;}
+    100.0%  {background-color:gray;}
+}
+
+
+/*.row:nth-child(even) {
+  & > div:nth-child(even) {
+    background-color:white;
+    transition: background-color 1000ms linear;
+  }
+}
+.row:nth-child(odd) {
+  & > div:nth-child(odd) {
+    background-color:white;
+    transition: background-color 1000ms linear;
+  }
+}*/
