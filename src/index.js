@@ -13,3 +13,6 @@ let model = new GridModel( SIZE, (data,row,col) => {
 let view = new GridView( SIZE, (row,col) => {
   model.activateCell(row,col);
 });
+
+window.model = model;
+window.view = view;

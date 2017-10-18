@@ -15,7 +15,7 @@ export default class GridView {
       htmlStr += '<div class="row">';
 
       _(this.size).times( col => {
-        htmlStr += `<div class="r${row} c${col}">0</div>`;
+        htmlStr += `<div class="r${row} c${col}"></div>`;
       })
       htmlStr += '</div>';
 
@@ -54,9 +54,19 @@ export default class GridView {
   }
 
   highlightCell(row,col) {
-    //todo add listener for animation complete: remove activated class
-    console.log(document.querySelector(`.r${row}.c${col}`));
-    document.querySelector(`.r${row}.c${col}`).className += ' activated';
+  
+    let el = document.querySelector(`.r${row}.c${col}`);
+    el.className += ' activated';
+
+    // use a named function, otherwise we can't remove the eventhandler
+    let onHighlightEnd = e => {
+        e.target.className = e.target.className.replace(/ activated/g,'');
+        e.target.removeEventListener(e.type, onHighlightEnd,false);
+    }
+    el.addEventListener('transitionend', onHighlightEnd);
+
   }
+
+
 
 }
