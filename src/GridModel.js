@@ -25,8 +25,10 @@ export default class GridModel{
 
     this.findSequences();
 
+    this.clearSequences();
+
     if(this.changeCallback)
-      this.changeCallback( this.getData(), row, col);
+      this.changeCallback( this.getData(), row, col, this.sequences);
   }
   toString(){
     return this.grid.map( ar => ar.join(', ') ).join('\n');
@@ -36,25 +38,29 @@ export default class GridModel{
     return this.grid.map( row => row.slice());
   }
 
-  // startRow, endRow, rowMod, startCol, endCol, colMod
+  // Clear out the sequences from the grid
+  clearSequences(){
+    this.sequences.forEach( seq => {
+      seq.forEach( cell => this.grid[cell.r][cell.c] = 0 )
+    });
+  }
+
+  // Go through all cells to find FN sequences
   findSequences(){
     this.sequences = [];
     this.findRowRight();
     this.findRowLeft();
     this.findColDown();
     this.findColUp();
-
-    console.log(this.sequences);
-    //this.sequences.forEach( console.log );
   }
 
   findRowRight(){
-    let r = 0;
-    let c = 0;
+    let r = -1;
+    let c = -1;
     this.findSeqIter( {
       nextLine: () => {
-        c = 0;
-        return ++r < this.size
+        c = -1;
+        return ++r < this.size;
       },
       nextCell: () => ++c < this.size,
       getVal: () => this.grid[r][c],
@@ -63,12 +69,12 @@ export default class GridModel{
     });
   }
   findRowLeft(){
-    let r = this.size - 1;
-    let c = this.size - 1;
+    let r = -1;
+    let c = this.size;
     this.findSeqIter( {
       nextLine: () => {
-        c = this.size - 1;
-        return --r >= 0
+        c = this.size;
+        return ++r < this.size
       },
       nextCell: () => --c >= 0,
       getVal: () => this.grid[r][c],
@@ -77,11 +83,11 @@ export default class GridModel{
     });
   }
   findColDown(){
-    let r = 0;
-    let c = 0;
+    let r = -1;
+    let c = -1;
     this.findSeqIter( {
       nextLine: () => {
-        r = 0;
+        r = -1;
         return ++c < this.size
       },
       nextCell: () => ++r < this.size,
@@ -91,12 +97,12 @@ export default class GridModel{
     });
   }
   findColUp(){
-    let r = this.size - 1;
-    let c = this.size - 1;
+    let r = this.size;
+    let c = -1;
     this.findSeqIter( {
       nextLine: () => {
-        r = this.size - 1;
-        return --c >= 0
+        r = this.size;
+        return ++c < this.size;
       },
       nextCell: () => --r >= 0,
       getVal: () => this.grid[r][c],
@@ -110,11 +116,11 @@ export default class GridModel{
 
     let line, cell;
 
-    while( line = iter.nextLine() ) {
+    while( iter.nextLine() ) {
       //console.log(iter.toString());
       this.current = [];
 
-      while( cell = iter.nextCell() ) {
+      while( iter.nextCell() ) {
 
         let val = iter.getVal();
 

@@ -6,8 +6,8 @@ import styles from './main.css'
 
 const SIZE = 50;
 
-let model = new GridModel( SIZE, (data,row,col) => {
-  if(view) view.update(data,row,col);
+let model = new GridModel( SIZE, (data,row,col,seq) => {
+  if(view) view.update(data,row,col,seq);
 });
 
 let view = new GridView( SIZE, (row,col) => {

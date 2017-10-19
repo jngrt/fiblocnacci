@@ -37,19 +37,19 @@ body {
   background-color: #eee;
 
 }
-
-.activated {
-  animation-name: yellowAnim;
-  animation-duration: 1s;
-  animation-play-state: running;
+.row > div > div {
+  margin:0;
+  padding:0;
+  height:100%;
+  width:100%;
 }
-
-@keyframes yellowAnim {
-    0%     {background-color:#eee;}
-    50.0%  {background-color:yellow;}
-    100.0%  {background-color:#eee;}
+.row > div > div > div {
+  margin:0;
+  padding:0;
+  height:100%;
+  width:100%;
+  z-index:2;
 }
-
 
 .row:nth-child(even) {
   & > div:nth-child(even) {
@@ -62,4 +62,29 @@ body {
     background-color:white;
     transition: background-color 1000ms linear;
   }
+}
+
+.activated {
+  animation-name: yellowAnim;
+  animation-duration: 1s;
+  animation-play-state: running;
+}
+
+@keyframes yellowAnim {
+    0%     {background-color:#fff;}
+    30.0%  {background-color:yellow;}
+    100.0%  {background-color:#fff;}
+}
+
+
+.sequence {
+  animation-name: greenAnim;
+  animation-duration: 1s;
+  animation-play-state: running;
+}
+
+@keyframes greenAnim {
+    0%     {background-color:#fff;}
+    30.0%  {background-color:green;}
+    100.0%  {background-color:#fff;}
 }
